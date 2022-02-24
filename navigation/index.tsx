@@ -3,21 +3,25 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome,AntDesign,Entypo,MaterialCommunityIcons } from '@expo/vector-icons';
+import { scale } from 'react-native-size-matters';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Image, Pressable, View } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import DashBoardScreen from '../screens/DashBoardScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { Styles } from '../constants/Styles';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -58,10 +62,64 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+      initialRouteName="DashBoard"
+      screenOptions={({ navigation }) => ({
+        tabBarActiveTintColor:Colors.dark.tint,
+        tabBarLabelStyle:{
+          fontSize:scale(13),
+          fontWeight:'bold'
+
+        },
+        headerTitle:() => (
+          <View style={Styles.header}>
+
+            <Image
+            source={require('../assets/images/Chama254-logo.png')}
+            />
+
+          </View>
+
+        ),
+        headerLeft:()=>(
+
+          <Pressable
+          onPress={() => navigation.navigate('Modal')}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+          })}>
+          <Entypo
+            name="menu"
+            size={scale(35)}
+            color={Colors[colorScheme].text}
+            style={{ marginRight: scale(15) }}
+          />
+        </Pressable>
+        ),
+        headerRight:()=>(
+          <Pressable
+          onPress={() => navigation.navigate('Modal')}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+          })}>
+          <MaterialCommunityIcons
+            name="account"
+            size={scale(30)}
+            color={Colors[colorScheme].text}
+            style={{ marginRight: scale(15) }}
+          />
+        </Pressable>
+        ),
+        tabBarIcon: ({ color }) => <AntDesign name="dashboard" color={color} size={scale(32)} />,
+        
+
+
+      })}
+>
+      <BottomTab.Screen
+        name="DashBoard"
+        component={DashBoardScreen}
+
+      />
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
@@ -78,7 +136,7 @@ function BottomTabNavigator() {
                 name="info-circle"
                 size={25}
                 color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
+                style={{ marginRight: scale(15) }}
               />
             </Pressable>
           ),
@@ -92,6 +150,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+
     </BottomTab.Navigator>
   );
 }
@@ -103,5 +162,5 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={scale(30)} style={{ marginBottom: scale(-3) }} {...props} />;
 }
