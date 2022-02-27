@@ -8,10 +8,10 @@ import { RootTabScreenProps } from '../types';
 //component imports
 import UserDetails from '../components/Dashboard/UserDetails';
 import Slider from '../components/Dashboard/Slider';
+import Fonts from '../constants/Fonts';
 //end of component imports
 
 export default function DashBoardScreen({ navigation }: RootTabScreenProps<'DashBoard'>) {
-  const [greetings, setGreeting] = useState('');
 
   const time = new Date().getHours();
   let greeting;
@@ -74,12 +74,16 @@ const styles = StyleSheet.create({
   },
   headerHello:{
     fontSize:scale(20),
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color:Colors.dark.tint,
+    fontFamily:Fonts.header.fontfamily
 
   },
   headerDescription:{
     fontSize:scale(15),
-    fontWeight:'500'
+    fontWeight:'700',
+    fontFamily:Fonts.header.fontfamily
+
 
 
   }

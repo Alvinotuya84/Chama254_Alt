@@ -1,5 +1,6 @@
 import { scale } from "react-native-size-matters";
 import { StyleSheet } from "react-native"; 
+import Fonts from "../../../constants/Fonts";
 export const Styles=StyleSheet.create({
     gridView:{
         width:"100%",
@@ -10,6 +11,10 @@ export const Styles=StyleSheet.create({
     },
     touchable:{
         alignItems:'center',
+    },
+    navigationText:{
+        fontFamily:Fonts.header.fontfamily
+
     }
 
 
