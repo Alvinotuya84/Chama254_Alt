@@ -20,6 +20,10 @@ export type RootStackParamList = {
   profile:undefined;
   Chamas:undefined;
   notifications:undefined;
+  EditProfileScreen:undefined;
+  TermsAndConditionsScreen:undefined;
+  CopyRightScreen:undefined;
+
 
 };
 
@@ -31,7 +35,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
   TabOne: undefined;
   Profile: undefined;
-  DashBoard:undefined;
+  Home:undefined;
   Notifications:undefined;
 
 };

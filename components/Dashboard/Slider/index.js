@@ -4,6 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Styles } from './Style';
 import { scrollInterpolator,animatedStyles } from '../../../utils/animations';
 import Carousel,{Pagination  } from 'react-native-snap-carousel';
+import Fonts from '../../../constants/Fonts';
+import Colors from '../../../constants/Colors';
 
 
 
@@ -18,12 +20,12 @@ const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 3 / 4);
 const DATA = [
     {
         id: 1,
-        name: 'React JS',
+        name: 'Chama254',
         url: 'https://www.chama254.com/f/assets/img/banner/1.jpg',
       },
       {
         id: 2,
-        name: 'JavaScript',
+        name: 'Chama254',
         url: 'https://www.chama254.com/f/assets/img/banner/5.jpg',
       },
 
@@ -66,14 +68,42 @@ export default class Slider extends Component {
     
       _renderItem({ item }) {
         return (
-             <Image
-  style={{ width: ITEM_WIDTH, height:  ITEM_HEIGHT ,
-borderRadius:20
-}}
+        <View style={{
+          backgroundColor:'white',
+          borderRadius:2,
 
-             resizeMode='contain'
-             source={{uri:item.url}}
-             />
+        }}>
+              <Image
+              style={{ width: ITEM_WIDTH, height:  ITEM_HEIGHT ,
+                borderRadius:2,
+
+              }}
+              resizeMode='contain'
+              source={{uri:item.url}}
+              />
+              <View style={{
+                flexDirection:'row',
+                padding:10,
+                justifyContent:'space-between'
+              }}>
+              <Text style={{
+                fontFamily:Fonts.header.fontfamily,
+                fontSize:20,
+                fontWeight:'bold'
+
+              }}>{item.name}</Text>
+                      <Text style={{
+                fontFamily:Fonts.header.fontfamily,
+                fontSize:15,
+                color:Colors.dark.tint,
+
+              }}>Power Your Chama!</Text>
+              </View>
+
+
+
+        </View>
+
         );
       }
     render(){

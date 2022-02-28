@@ -27,6 +27,9 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { Styles } from '../constants/Styles';
 import Fonts from '../constants/Fonts';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import TermsAndConditions from '../screens/TermsAndConditionsScreen';
+import CopyRightScreen from '../screens/CopyRightScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -53,7 +56,22 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="profile" component={ProfileScreen} />
         <Stack.Screen name="Chamas" component={ChamasScreen} />
-        <Stack.Screen name="notifications" component={NotificationsScreen} />
+        <Stack.Screen name="notifications" component={NotificationsScreen} options={{
+
+          headerTitle:'Notifications'
+        }}/>
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen name="TermsAndConditionsScreen" component={TermsAndConditions} options={{
+          headerTitle:'',
+          headerShadowVisible:false
+        }}/>
+            <Stack.Screen name="CopyRightScreen" component={CopyRightScreen} options={{
+          headerTitle:'',
+          headerShadowVisible:false
+        }}/>
+
+
+
 
 
       </Stack.Group>
@@ -82,12 +100,11 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="DashBoard"
+      initialRouteName="Home"
       screenOptions={({ navigation }) => ({
         tabBarActiveTintColor:Colors.dark.tint,
         tabBarLabelStyle:{
           fontSize:scale(13),
-          fontWeight:'bold',
           fontFamily:Fonts.header.fontfamily
 
         },
@@ -132,10 +149,10 @@ function BottomTabNavigator() {
       })}
 >
       <BottomTab.Screen
-        name="DashBoard"
+        name="Home"
         component={DashBoardScreen}
-        options={({ navigation }: RootTabScreenProps<'DashBoard'>) => ({        
-          tabBarIcon: ({ color }) => <MaterialIcons name="dashboard" color={color} size={scale(32)} />,
+        options={({ navigation }: RootTabScreenProps<'Home'>) => ({        
+          tabBarIcon: ({ color }) => <Entypo name="home" color={color} size={scale(25)} />,
 
 
         })}
@@ -148,7 +165,7 @@ function BottomTabNavigator() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) =>           
-        <MaterialCommunityIcons name="account" color={color} size={scale(32)} />,
+        <MaterialCommunityIcons name="account" color={color} size={scale(25)} />,
         }}
       />
 
@@ -157,7 +174,7 @@ function BottomTabNavigator() {
         component={NotificationsScreen}
         options={({ navigation }: RootTabScreenProps<'Notifications'>) => ({
           title: 'Notifications',
-          tabBarIcon: ({ color }) => <Ionicons name="notifications" color={color}  size={scale(32)} />,
+          tabBarIcon: ({ color }) => <Ionicons name="notifications" color={color}  size={scale(25)} />,
 
         })}
       />

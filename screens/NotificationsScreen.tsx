@@ -7,6 +7,7 @@ import {
   Image,
   FlatList
 } from 'react-native';
+import Colors from '../constants/Colors';
 
 export default class NotificationsScreen extends Component {
 
@@ -120,6 +121,6 @@ const styles = StyleSheet.create({
   },
   name:{
     fontSize:16,
-    color:"#1E90FF"
+    color:Colors.dark.tint
   }
 }); 

@@ -1,4 +1,4 @@
-const universalFont='sans-serif-thin';
+const universalFont='sans-serif-condensed';
 export default {
     header:{
         fontfamily:universalFont,
