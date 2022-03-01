@@ -23,6 +23,9 @@ export type RootStackParamList = {
   EditProfileScreen:undefined;
   TermsAndConditionsScreen:undefined;
   CopyRightScreen:undefined;
+  MainDrawer:undefined;
+  //main screens
+  DashBoard:undefined;
 
 
 };

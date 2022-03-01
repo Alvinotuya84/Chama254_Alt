@@ -30,6 +30,8 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import TermsAndConditions from '../screens/TermsAndConditionsScreen';
 import CopyRightScreen from '../screens/CopyRightScreen';
+import DashBoard from '../screens/MainScreens/DashBoard';
+import MyAttendance from '../screens/MainScreens/MyAttendance';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -58,7 +60,7 @@ function RootNavigator() {
         <Stack.Screen name="Chamas" component={ChamasScreen} />
         <Stack.Screen name="notifications" component={NotificationsScreen} options={{
 
-          headerTitle:'Notifications'
+          headerTitle:''
         }}/>
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen name="TermsAndConditionsScreen" component={TermsAndConditions} options={{
@@ -70,6 +72,9 @@ function RootNavigator() {
           headerShadowVisible:false
         }}/>
 
+       <Stack.Screen name="MainDrawer" component={MainDrawer} options={{
+      headerShown:false
+        }}/>
 
 
 
@@ -81,9 +86,16 @@ function RootNavigator() {
 const DrawerNavigator=createDrawerNavigator();
  function MainDrawer(){
    return(
-    <DrawerNavigator.Navigator>
-        <DrawerNavigator.Screen name="DashBoard" component={DashBoardScreen}/>
-        <DrawerNavigator.Screen name="TabOne" component={TabOneScreen}/>
+    <DrawerNavigator.Navigator
+    
+    initialRouteName='DashBoard'
+    
+    backBehavior='none'
+    >
+        <DrawerNavigator.Screen 
+        
+        name="DashBoard" component={DashBoard}/>
+        <DrawerNavigator.Screen name="MyAttendance" component={MyAttendance}/>
         <DrawerNavigator.Screen name="TabTwo" component={TabTwoScreen}/>
     </DrawerNavigator.Navigator>
    )
@@ -123,8 +135,8 @@ function BottomTabNavigator() {
           <Entypo
             name="menu"
             size={scale(35)}
-            color='white'
-            style={{ marginRight: scale(15) }}
+            style={{ marginRight: scale(15),
+            opacity:0 }}
           />
         </Pressable>
         ),

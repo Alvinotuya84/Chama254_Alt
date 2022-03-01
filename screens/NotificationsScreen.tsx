@@ -8,6 +8,9 @@ import {
   FlatList
 } from 'react-native';
 import Colors from '../constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+import { scale } from 'react-native-size-matters';
+import Fonts from '../constants/Fonts';
 
 export default class NotificationsScreen extends Component {
 
@@ -22,52 +25,73 @@ export default class NotificationsScreen extends Component {
         {id:1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name:"Frank Odalthh",    text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:"https://via.placeholder.com/100x100/7B68EE/000000"},
         {id:6, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name:"Clark June Boom!", text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
         {id:7, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name:"The googler",      text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
-      ]
+      ],
+      notification:null
     }
   }
 
   render() {
-    return (
-      <FlatList
-        style={styles.root}
-        data={this.state.data}
-        extraData={this.state}
-        ItemSeparatorComponent={() => {
-          return (
-            <View style={styles.separator}/>
-          )
-        }}
-        keyExtractor={(item)=>{
-          return item.id;
-        }}
-        renderItem={(item) => {
-          const Notification = item.item;
-          let attachment = <View/>;
-
-          let mainContentStyle;
-          if(Notification.attachment) {
-            mainContentStyle = styles.mainContent;
-            attachment = <Image style={styles.attachment} source={{uri:Notification.attachment}}/>
-          }
-          return(
-            <View style={styles.container}>
-              <Image source={{uri:Notification.image}} style={styles.avatar}/>
-              <View style={styles.content}>
-                <View style={mainContentStyle}>
-                  <View style={styles.text}>
-                    <Text style={styles.name}>{Notification.name}</Text>
-                    <Text>{Notification.text}</Text>
+    if(this.state.notification){
+      return (
+        <FlatList
+          style={styles.root}
+          data={this.state.data}
+          extraData={this.state}
+          ItemSeparatorComponent={() => {
+            return (
+              <View style={styles.separator}/>
+            )
+          }}
+          keyExtractor={(item)=>{
+            return item.id;
+          }}
+          renderItem={(item) => {
+            const Notification = item.item;
+            let attachment = <View/>;
+  
+            let mainContentStyle;
+            if(Notification.attachment) {
+              mainContentStyle = styles.mainContent;
+              attachment = <Image style={styles.attachment} source={{uri:Notification.attachment}}/>
+            }
+            return(
+              <View style={styles.container}>
+                <Image source={{uri:Notification.image}} style={styles.avatar}/>
+                <View style={styles.content}>
+                  <View style={mainContentStyle}>
+                    <View style={styles.text}>
+                      <Text style={styles.name}>{Notification.name}</Text>
+                      <Text>{Notification.text}</Text>
+                    </View>
+                    <Text style={styles.timeAgo}>
+                      2 hours ago
+                    </Text>
                   </View>
-                  <Text style={styles.timeAgo}>
-                    2 hours ago
-                  </Text>
+                  {attachment}
                 </View>
-                {attachment}
               </View>
-            </View>
-          );
-        }}/>
-    );
+            );
+          }}/>
+      );
+
+    }
+    else{
+      return(
+        <View style={{flex:1,
+        alignItems:'center'}}>
+          <Text style={{
+            fontSize:25,
+            fontFamily:Fonts.header.fontfamily
+          }}>NOTIFICATIONS</Text>
+        <View style={styles.noNotifications}>
+          <Text style={styles.noNotificationsText}>No Notifications</Text>
+          <Ionicons name='notifications' size={scale(35)} color='grey'/>
+        </View>
+        </View>
+
+      )
+    }
+    
   }
 }
 
@@ -122,5 +146,14 @@ const styles = StyleSheet.create({
   name:{
     fontSize:16,
     color:Colors.dark.tint
+  },
+  noNotifications:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  noNotificationsText:{
+    fontFamily:Fonts.header.fontfamily,
+    fontSize:20
   }
 }); 
