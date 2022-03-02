@@ -21,6 +21,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ChamasScreen from '../screens/ChamasScreen';
+import { mainScreens } from '../constants/routes/mainScreenRoutes';
 
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -30,8 +31,8 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import TermsAndConditions from '../screens/TermsAndConditionsScreen';
 import CopyRightScreen from '../screens/CopyRightScreen';
-import DashBoard from '../screens/MainScreens/DashBoard';
-import MyAttendance from '../screens/MainScreens/MyAttendance';
+import PhoneNumber from '../screens/AuthScreens/PhoneNumber';
+import Otp from '../screens/AuthScreens/Otp';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -51,8 +52,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  return (
-    <Stack.Navigator>
+
+  const [AuthState,setAuthState]=React.useState(true);
+  if(AuthState){
+    return(
+      <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -81,7 +85,23 @@ function RootNavigator() {
 
       </Stack.Group>
     </Stack.Navigator>
-  );
+    );
+
+  }
+  else{
+    return (
+      <Stack.Navigator>
+
+            <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
+            <Stack.Screen name="Otp" component={Otp} />
+      </Stack.Navigator>
+        );
+
+  }
+
+  
+  
+
 }
 const DrawerNavigator=createDrawerNavigator();
  function MainDrawer(){
@@ -91,12 +111,23 @@ const DrawerNavigator=createDrawerNavigator();
     initialRouteName='DashBoard'
     
     backBehavior='none'
+
+    screenOptions={{
+      headerTitle:'Chama Details',
+      headerBackgroundContainerStyle:{
+
+      }
+
+    }}
     >
-        <DrawerNavigator.Screen 
-        
-        name="DashBoard" component={DashBoard}/>
-        <DrawerNavigator.Screen name="MyAttendance" component={MyAttendance}/>
-        <DrawerNavigator.Screen name="TabTwo" component={TabTwoScreen}/>
+
+        {
+          mainScreens.map((item,id)=>(
+            <DrawerNavigator.Screen key={id} name={item.name} component={item.component}/>
+
+          ))
+        }
+
     </DrawerNavigator.Navigator>
    )
 

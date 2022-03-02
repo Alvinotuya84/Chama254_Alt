@@ -15,6 +15,10 @@ declare global {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  //auth screens
+  Otp:undefined;
+  PhoneNumber:undefined;
+  //end of auth screens
   Modal: undefined;
   NotFound: undefined;
   profile:undefined;
